@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .sendArea {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>chat app</h1>
+    <div class="textArea"></div>
+    <div class="sendArea">
+      <input type="text" id="messageInput" />
+      <button onclick="sendMessage()">send</button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      // This line initializes a Socket.IO connection from the client to the server.
+      // It creates a socket object that can send and receive events.
+      const socket = io();
+
+      function sendMessage() {
+        const input = document.getElementById("messageInput");
+        const message = input.value;
+
+        // Emit the message event to the server
+        socket.emit("message", message);
+        
+        // Clear the input field
+        input.value = "";
+      }
+
+      // Listen for incoming messages from the server
+      socket.on("message", (message) => {
+        const textArea = document.querySelector(".textArea");
+        const newMessage = document.createElement("p");
+        newMessage.textContent = message;
+        textArea.appendChild(newMessage);
+      });
+    </script>
+  </body>
+</html>

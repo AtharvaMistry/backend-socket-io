@@ -1,0 +1,11 @@
+✔ methods in socket:
+
+emit(event, data,[callback]):
+on(event, callback):
+once(event, callback):
+off(event[, callback]):
+join(room[, callback]):
+leave(room[, callback]):
+broadcast.emit(event, data):
+disconnect():
+to(room):
